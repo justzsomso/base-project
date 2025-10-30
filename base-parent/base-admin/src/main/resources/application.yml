@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    active: dev # 默认激活开发环境
+  servlet:
+    multipart:
+      max-file-size: 10MB # 单个文件大小限制
+      max-request-size: 100MB # 总文件大小限制
+
+# 文件存储配置
+file:
+  storage-type: local # 存储类型：local/oss
+
+# MyBatis-Plus配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.xxx.*.entity
+  configuration:
+    map-underscore-to-camel-case: true # 下划线转驼峰
+  global-config:
+    db-config:
+      logic-delete-field: deleted # 逻辑删除字段
+      logic-delete-value: 1 # 已删除
+      logic-not-delete-value: 0 # 未删除
+
+# 接口文档配置
+knife4j:
+  enable: true
+  openapi:
+    title: 基座项目API文档
+    version: 1.0.0
+    description: 包含用户管理、角色管理、附件管理等接口
