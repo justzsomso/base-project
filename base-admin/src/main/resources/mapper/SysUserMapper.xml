@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.admin.mapper.SysUserMapper">
+
+    <resultMap id="SysUserResultMap" type="com.base.admin.entity.SysUser">
+        <id column="ID" property="id"/>
+        <result column="USERNAME" property="username"/>
+        <result column="PASSWORD" property="password"/>
+        <result column="NAME" property="name"/>
+        <result column="STATUS" property="status"/>
+        <result column="CREATE_TIME" property="createTime"/>
+        <result column="UPDATE_TIME" property="updateTime"/>
+    </resultMap>
+
+    <!-- 查询所有用户 -->
+    <select id="findAll" resultMap="SysUserResultMap">
+        SELECT ID, USERNAME, PASSWORD, NAME, STATUS, CREATE_TIME, UPDATE_TIME
+        FROM sys_user
+    </select>
+
+    <!-- 根据ID查询用户 -->
+    <select id="findById" parameterType="long" resultMap="SysUserResultMap">
+        SELECT ID, USERNAME, PASSWORD, NAME, STATUS, CREATE_TIME, UPDATE_TIME
+        FROM sys_user
+        WHERE ID = #{id}
+    </select>
+
+    <!-- 插入用户 -->
+    <insert id="insert" parameterType="com.base.admin.entity.SysUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_user(USERNAME, PASSWORD, NAME, STATUS, CREATE_TIME, UPDATE_TIME)
+        VALUES(#{username}, #{password}, #{name}, #{status}, #{createTime}, #{updateTime})
+    </insert>
+
+    <!-- 更新用户 -->
+    <update id="update" parameterType="com.base.admin.entity.SysUser">
+        UPDATE sys_user
+        SET USERNAME=#{username}, PASSWORD=#{password}, NAME=#{name}, STATUS=#{status}, UPDATE_TIME=#{updateTime}
+        WHERE ID=#{id}
+    </update>
+
+    <!-- 删除用户 -->
+    <delete id="deleteById" parameterType="long">
+        DELETE FROM sys_user WHERE ID = #{id}
+    </delete>
+
+</mapper>
