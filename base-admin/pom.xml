@@ -5,7 +5,7 @@
     <!-- 继承父模块 -->
     <parent>
         <groupId>com.base</groupId>
-        <artifactId>base-parent</artifactId>
+        <artifactId>base-project</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -14,30 +14,13 @@
     <artifactId>base-admin</artifactId>
     <packaging>jar</packaging>
     <name>base-admin</name>
-    <description>项目启动模块，聚合所有业务模块</description>
+    <description>简化版Spring Boot应用</description>
 
     <dependencies>
-        <!-- 依赖所有子模块 -->
-        <dependency>
-            <groupId>com.base</groupId>
-            <artifactId>base-common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.base</groupId>
-            <artifactId>base-system</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.base</groupId>
-            <artifactId>base-file</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!-- Spring Boot启动器 -->
+        <!-- Spring Boot Web启动器 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
 
@@ -47,25 +30,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>3.2.0</version>
                 <configuration>
                     <!-- 指定启动类全路径 -->
                     <mainClass>com.base.admin.AdminApplication</mainClass>
-                    <!-- 排除lombok，避免打包冲突 -->
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
