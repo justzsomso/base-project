@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.base</groupId>
-    <artifactId>base-parent</artifactId>
+    <artifactId>base-project</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
-    <name>base-parent</name>
+    <name>base-project</name>
     <description>基座项目父POM，统一管理依赖版本</description>
 
     <!-- 子模块声明（父模块包含子模块，直接写模块名） -->
