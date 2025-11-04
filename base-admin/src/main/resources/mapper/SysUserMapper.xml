@@ -25,6 +25,28 @@
         WHERE ID = #{id}
     </select>
 
+    <!-- 根据用户名查询用户 -->
+    <select id="findByUsername" parameterType="string" resultMap="SysUserResultMap">
+        SELECT ID, USERNAME, PASSWORD, NAME, STATUS, CREATE_TIME, UPDATE_TIME
+        FROM sys_user
+        WHERE USERNAME = #{username}
+    </select>
+
+    <!-- 分页查询用户 -->
+    <select id="findPage" parameterType="com.base.admin.dto.UserQueryDTO" resultMap="SysUserResultMap">
+        SELECT ID, USERNAME, PASSWORD, NAME, STATUS, CREATE_TIME, UPDATE_TIME
+        FROM sys_user
+        <where>
+            <if test="name != null and name != ''">
+                AND NAME LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="status != null">
+                AND STATUS = #{status}
+            </if>
+        </where>
+        ORDER BY CREATE_TIME DESC
+    </select>
+
     <!-- 插入用户 -->
     <insert id="insert" parameterType="com.base.admin.entity.SysUser" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO sys_user(USERNAME, PASSWORD, NAME, STATUS, CREATE_TIME, UPDATE_TIME)
