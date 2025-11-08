@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.admin.mapper.SysRoleMapper">
+
+    <resultMap id="SysRoleResultMap" type="com.base.admin.entity.SysRole">
+        <id column="ID" property="id"/>
+        <result column="ROLE_NAME" property="roleName"/>
+        <result column="ROLE_CODE" property="roleCode"/>
+        <result column="DESCRIPTION" property="description"/>
+        <result column="STATUS" property="status"/>
+        <result column="CREATE_TIME" property="createTime"/>
+        <result column="UPDATE_TIME" property="updateTime"/>
+    </resultMap>
+
+    <!-- 查询所有角色 -->
+    <select id="findAll" resultMap="SysRoleResultMap">
+        SELECT ID, ROLE_NAME, ROLE_CODE, DESCRIPTION, STATUS, CREATE_TIME, UPDATE_TIME
+        FROM sys_role
+    </select>
+
+    <!-- 根据ID查询角色 -->
+    <select id="findById" parameterType="long" resultMap="SysRoleResultMap">
+        SELECT ID, ROLE_NAME, ROLE_CODE, DESCRIPTION, STATUS, CREATE_TIME, UPDATE_TIME
+        FROM sys_role
+        WHERE ID = #{id}
+    </select>
+
+    <!-- 根据角色名称查询角色 -->
+    <select id="findByRoleName" parameterType="string" resultMap="SysRoleResultMap">
+        SELECT ID, ROLE_NAME, ROLE_CODE, DESCRIPTION, STATUS, CREATE_TIME, UPDATE_TIME
+        FROM sys_role
+        WHERE ROLE_NAME LIKE CONCAT('%', #{roleName}, '%')
+    </select>
+
+    <!-- 插入角色 -->
+    <insert id="insert" parameterType="com.base.admin.entity.SysRole" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_role(ROLE_NAME, ROLE_CODE, DESCRIPTION, STATUS, CREATE_TIME, UPDATE_TIME)
+        VALUES(#{roleName}, #{roleCode}, #{description}, #{status}, #{createTime}, #{updateTime})
+    </insert>
+
+    <!-- 更新角色 -->
+    <update id="update" parameterType="com.base.admin.entity.SysRole">
+        UPDATE sys_role
+        SET ROLE_NAME=#{roleName}, ROLE_CODE=#{roleCode}, DESCRIPTION=#{description}, STATUS=#{status}, UPDATE_TIME=#{updateTime}
+        WHERE ID=#{id}
+    </update>
+
+    <!-- 删除角色 -->
+    <delete id="deleteById" parameterType="long">
+        DELETE FROM sys_role WHERE ID = #{id}
+    </delete>
+
+</mapper>
