@@ -5,7 +5,7 @@ import com.base.admin.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -36,15 +36,15 @@ public class SysRoleController {
     // 创建角色
     @PostMapping("/")
     public boolean createRole(@RequestBody SysRole role) {
-        role.setCreateTime(LocalDateTime.now());
-        role.setUpdateTime(LocalDateTime.now());
+        role.setCreateTime(new Date());
+        role.setUpdateTime(new Date());
         return sysRoleService.save(role);
     }
 
     // 更新角色
     @PutMapping("/")
     public boolean updateRole(@RequestBody SysRole role) {
-        role.setUpdateTime(LocalDateTime.now());
+        role.setUpdateTime(new Date());
         return sysRoleService.update(role);
     }
 

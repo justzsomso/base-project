@@ -1,6 +1,6 @@
 package com.base.admin.entity;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class SysUser {
     private Long id;
@@ -8,8 +8,8 @@ public class SysUser {
     private String password;
     private String name;
     private Integer status;
-    private LocalDateTime createTime;
-    private LocalDateTime updateTime;
+    private Date createTime;
+    private Date updateTime;
 
     // Getters and Setters
     public Long getId() {
@@ -52,19 +52,19 @@ public class SysUser {
         this.status = status;
     }
 
-    public LocalDateTime getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public LocalDateTime getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(LocalDateTime updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 }

@@ -5,7 +5,7 @@ import com.base.admin.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -30,15 +30,15 @@ public class SysUserController {
     // 创建用户
     @PostMapping("/")
     public boolean createUser(@RequestBody SysUser user) {
-        user.setCreateTime(LocalDateTime.now());
-        user.setUpdateTime(LocalDateTime.now());
+        user.setCreateTime(new Date());
+        user.setUpdateTime(new Date());
         return sysUserService.save(user);
     }
 
     // 更新用户
     @PutMapping("/")
     public boolean updateUser(@RequestBody SysUser user) {
-        user.setUpdateTime(LocalDateTime.now());
+        user.setUpdateTime(new Date());
         return sysUserService.update(user);
     }
 
