@@ -1,11 +1,38 @@
 package com.base.admin.dto;
 
+/**
+ * 用户DTO类
+ */
 public class SysUserDTO {
+    /**
+     * 用户ID
+     */
     private Long id;
+    
+    /**
+     * 用户名
+     */
     private String username;
+    
+    /**
+     * 密码
+     */
     private String password;
+    
+    /**
+     * 姓名
+     */
     private String name;
+    
+    /**
+     * 状态：0-禁用 1-启用
+     */
     private Integer status;
+    
+    /**
+     * 角色名称
+     */
+    private String roleName;
 
     // Getters and Setters
     public Long getId() {
@@ -46,5 +73,13 @@ public class SysUserDTO {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 }

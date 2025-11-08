@@ -8,19 +8,38 @@
         <result column="PASSWORD" property="password"/>
         <result column="NAME" property="name"/>
         <result column="STATUS" property="status"/>
+        <result column="ROLE_ID" property="roleId"/>
         <result column="CREATE_TIME" property="createTime"/>
         <result column="UPDATE_TIME" property="updateTime"/>
     </resultMap>
 
-    <!-- 查询所有用户 -->
-    <select id="findAll" resultMap="SysUserResultMap">
-        SELECT ID, USERNAME, PASSWORD, NAME, STATUS, CREATE_TIME, UPDATE_TIME
+
+    <!-- 根据条件查询用户列表 -->
+    <select id="findByCondition" parameterType="com.base.admin.dto.SysUserQueryDTO" resultMap="SysUserResultMap">
+        SELECT ID, USERNAME, PASSWORD, NAME, STATUS, ROLE_ID, CREATE_TIME, UPDATE_TIME
         FROM sys_user
+        <where>
+            <if test="id != null">
+                AND ID = #{id}
+            </if>
+            <if test="username != null and username != ''">
+                AND USERNAME LIKE CONCAT('%', #{username}, '%')
+            </if>
+            <if test="name != null and name != ''">
+                AND NAME LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="status != null">
+                AND STATUS = #{status}
+            </if>
+            <if test="roleId != null">
+                AND ROLE_ID = #{roleId}
+            </if>
+        </where>
     </select>
 
     <!-- 根据ID查询用户 -->
     <select id="findById" parameterType="long" resultMap="SysUserResultMap">
-        SELECT ID, USERNAME, PASSWORD, NAME, STATUS, CREATE_TIME, UPDATE_TIME
+        SELECT ID, USERNAME, PASSWORD, NAME, STATUS, ROLE_ID, CREATE_TIME, UPDATE_TIME
         FROM sys_user
         WHERE ID = #{id}
     </select>
@@ -49,14 +68,14 @@
 
     <!-- 插入用户 -->
     <insert id="insert" parameterType="com.base.admin.entity.SysUser" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO sys_user(USERNAME, PASSWORD, NAME, STATUS, CREATE_TIME, UPDATE_TIME)
-        VALUES(#{username}, #{password}, #{name}, #{status}, #{createTime}, #{updateTime})
+        INSERT INTO sys_user(USERNAME, PASSWORD, NAME, STATUS, ROLE_ID, CREATE_TIME, UPDATE_TIME)
+        VALUES(#{username}, #{password}, #{name}, #{status}, #{roleId}, #{createTime}, #{updateTime})
     </insert>
 
     <!-- 更新用户 -->
     <update id="update" parameterType="com.base.admin.entity.SysUser">
         UPDATE sys_user
-        SET USERNAME=#{username}, PASSWORD=#{password}, NAME=#{name}, STATUS=#{status}, UPDATE_TIME=#{updateTime}
+        SET USERNAME=#{username}, PASSWORD=#{password}, NAME=#{name}, STATUS=#{status}, ROLE_ID=#{roleId}, UPDATE_TIME=#{updateTime}
         WHERE ID=#{id}
     </update>
 

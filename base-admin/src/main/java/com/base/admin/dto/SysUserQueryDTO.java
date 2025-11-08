@@ -1,49 +1,43 @@
-package com.base.admin.entity;
+package com.base.admin.dto;
 
-import java.util.Date;
-
-public class SysUser {
+/**
+ * 用户查询条件DTO类
+ */
+public class SysUserQueryDTO {
     /**
      * 用户ID
      */
     private Long id;
-
-
+    
     /**
      * 用户名
      */
     private String username;
-
-    /**
-     * 密码
-     */
-    private String password;
-
+    
     /**
      * 姓名
      */
     private String name;
-
+    
     /**
      * 状态：0-禁用 1-启用
      */
     private Integer status;
-
+    
     /**
      * 角色ID
      */
     private Long roleId;
-
+    
     /**
-     * 创建时间
+     * 当前页码
      */
-    private Date createTime;
-
+    private Integer pageNum = 1;
+    
     /**
-     * 更新时间
+     * 每页记录数
      */
-    private Date updateTime;
-
+    private Integer pageSize = 10;
 
     // Getters and Setters
     public Long getId() {
@@ -60,14 +54,6 @@ public class SysUser {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getName() {
@@ -94,19 +80,19 @@ public class SysUser {
         this.roleId = roleId;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Integer getPageNum() {
+        return pageNum;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public Integer getPageSize() {
+        return pageSize;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 }

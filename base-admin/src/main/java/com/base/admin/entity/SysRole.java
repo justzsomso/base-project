@@ -2,48 +2,41 @@ package com.base.admin.entity;
 
 import java.util.Date;
 
-public class SysUser {
+public class SysRole {
     /**
-     * 用户ID
+     * 角色ID
      */
     private Long id;
-
-
+    
     /**
-     * 用户名
+     * 角色名称
      */
-    private String username;
-
+    private String roleName;
+    
     /**
-     * 密码
+     * 角色编码
      */
-    private String password;
-
+    private String roleCode;
+    
     /**
-     * 姓名
+     * 角色描述
      */
-    private String name;
-
+    private String description;
+    
     /**
      * 状态：0-禁用 1-启用
      */
     private Integer status;
-
-    /**
-     * 角色ID
-     */
-    private Long roleId;
-
+    
     /**
      * 创建时间
      */
     private Date createTime;
-
+    
     /**
      * 更新时间
      */
     private Date updateTime;
-
 
     // Getters and Setters
     public Long getId() {
@@ -54,28 +47,28 @@ public class SysUser {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getRoleCode() {
+        return roleCode;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
     }
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getStatus() {
@@ -84,14 +77,6 @@ public class SysUser {
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
     }
 
     public Date getCreateTime() {

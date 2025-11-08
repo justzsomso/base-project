@@ -1,7 +1,5 @@
 package com.base.admin.controller;
 
-import com.base.admin.dto.PageResult;
-import com.base.admin.dto.UserQueryDTO;
 import com.base.admin.entity.SysUser;
 import com.base.admin.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +17,10 @@ public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
 
-    // 查询所有用户
+    // 根据条件分页查询用户
     @GetMapping("/")
-    public List<SysUser> getAllUsers() {
-        return sysUserService.findAll();
+    public PageResult<SysUser> getAllUsers(SysUserQueryDTO userQuery) {
+        return sysUserService.findByCondition(userQuery);
     }
 
     // 根据ID查询用户
@@ -74,11 +72,5 @@ public class SysUserController {
     @DeleteMapping("/{id}")
     public boolean deleteUser(@PathVariable Long id) {
         return sysUserService.deleteById(id);
-    }
-    
-    // 分页查询用户
-    @PostMapping("/page")
-    public PageResult<SysUser> findUserPage(@RequestBody UserQueryDTO queryDTO) {
-        return sysUserService.findPage(queryDTO);
     }
 }
