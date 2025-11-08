@@ -20,5 +20,5 @@ public interface SysUserMapper {
 
     int deleteById(Long id);
 
-
+    SysUser findByUsername(String username);
 }

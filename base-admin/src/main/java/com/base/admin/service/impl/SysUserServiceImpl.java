@@ -1,11 +1,10 @@
 package com.base.admin.service.impl;
 
-import com.base.admin.dto.PageResult;
 import com.base.admin.entity.SysUser;
 import com.base.admin.mapper.SysUserMapper;
 import com.base.admin.service.SysUserService;
-import com.base.admin.util.PageResult;
 import com.base.admin.dto.SysUserQueryDTO;
+import com.base.admin.util.PageResult;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.base.admin.util.PasswordUtil;

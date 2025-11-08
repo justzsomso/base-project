@@ -57,9 +57,9 @@ public class PasswordUtil {
         }
         
         // 检查是否包含大写字母
-        if (Pattern.compile("[A-Z]").matcher(password).find()) {
-            strength++;
-        }
+//        if (Pattern.compile("[A-Z]").matcher(password).find()) {
+//            strength++;
+//        }
         
         // 检查是否包含特殊字符
         if (Pattern.compile("[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]").matcher(password).find()) {

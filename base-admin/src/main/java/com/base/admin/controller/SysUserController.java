@@ -1,7 +1,9 @@
 package com.base.admin.controller;
 
+import com.base.admin.dto.SysUserQueryDTO;
 import com.base.admin.entity.SysUser;
 import com.base.admin.service.SysUserService;
+import com.base.admin.util.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

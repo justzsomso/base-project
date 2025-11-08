@@ -1,10 +1,8 @@
 package com.base.admin.service;
 
-import com.base.admin.dto.PageResult;
-import com.base.admin.dto.UserQueryDTO;
+import com.base.admin.dto.SysUserQueryDTO;
 import com.base.admin.entity.SysUser;
-
-import java.util.List;
+import com.base.admin.util.PageResult;
 
 public interface SysUserService {
     /**
