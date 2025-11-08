@@ -2,6 +2,8 @@ package com.base.admin.controller;
 
 import com.base.admin.entity.SysRole;
 import com.base.admin.service.SysRoleService;
+import com.base.admin.util.PageResult;
+import com.base.admin.dto.SysRoleQueryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,10 +17,10 @@ public class SysRoleController {
     @Autowired
     private SysRoleService sysRoleService;
 
-    // 查询所有角色
+    // 根据条件分页查询角色
     @GetMapping("/")
-    public List<SysRole> getAllRoles() {
-        return sysRoleService.findAll();
+    public PageResult<SysRole> getAllRoles(SysRoleQueryDTO roleQuery) {
+        return sysRoleService.findByCondition(roleQuery);
     }
 
     // 根据ID查询角色

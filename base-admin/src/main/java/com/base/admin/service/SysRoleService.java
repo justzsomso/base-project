@@ -1,15 +1,11 @@
 package com.base.admin.service;
 
 import com.base.admin.entity.SysRole;
+import com.base.admin.util.PageResult;
+import com.base.admin.dto.SysRoleQueryDTO;
 import java.util.List;
 
 public interface SysRoleService {
-    /**
-     * 查询所有角色
-     * @return 角色列表
-     */
-    List<SysRole> findAll();
-    
     /**
      * 根据ID查询角色
      * @param id 角色ID
@@ -44,4 +40,11 @@ public interface SysRoleService {
      * @return 角色列表
      */
     List<SysRole> findByRoleName(String roleName);
+    
+    /**
+     * 根据条件分页查询角色
+     * @param roleQuery 查询条件
+     * @return 分页结果
+     */
+    PageResult<SysRole> findByCondition(SysRoleQueryDTO roleQuery);
 }

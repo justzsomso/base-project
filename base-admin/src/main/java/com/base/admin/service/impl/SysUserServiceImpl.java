@@ -3,6 +3,10 @@ package com.base.admin.service.impl;
 import com.base.admin.entity.SysUser;
 import com.base.admin.mapper.SysUserMapper;
 import com.base.admin.service.SysUserService;
+import com.base.admin.util.PageResult;
+import com.base.admin.dto.SysUserQueryDTO;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +17,18 @@ public class SysUserServiceImpl implements SysUserService {
     
     @Autowired
     private SysUserMapper sysUserMapper;
-    
+
     /**
-     * 查询所有用户
-     * @return 用户列表
+     * 根据条件分页查询用户
+     * @param userQuery 查询条件
+     * @return 分页结果
      */
     @Override
-    public List<SysUser> findAll() {
-        return sysUserMapper.findAll();
+    public PageResult<SysUser> findByCondition(SysUserQueryDTO userQuery) {
+        PageHelper.startPage(userQuery.getPageNum(), userQuery.getPageSize());
+        List<SysUser> users = sysUserMapper.findByCondition(userQuery);
+        PageInfo<SysUser> pageInfo = new PageInfo<>(users);
+        return new PageResult<>(users, pageInfo.getTotal(), userQuery.getPageSize(), userQuery.getPageNum());
     }
     
 

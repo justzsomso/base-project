@@ -1,10 +1,16 @@
 package com.base.admin.mapper;
 
 import com.base.admin.entity.SysRole;
+import com.base.admin.dto.SysRoleQueryDTO;
 import java.util.List;
 
 public interface SysRoleMapper {
-    List<SysRole> findAll();
+    /**
+     * 根据条件查询角色列表
+     * @param roleQuery 查询条件
+     * @return 角色列表
+     */
+    List<SysRole> findByCondition(SysRoleQueryDTO roleQuery);
 
     SysRole findById(Long id);
 
@@ -15,4 +21,6 @@ public interface SysRoleMapper {
     int deleteById(Long id);
 
     List<SysRole> findByRoleName(String roleName);
+    
+
 }

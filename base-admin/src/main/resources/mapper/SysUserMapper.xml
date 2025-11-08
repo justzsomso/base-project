@@ -13,10 +13,28 @@
         <result column="UPDATE_TIME" property="updateTime"/>
     </resultMap>
 
-    <!-- 查询所有用户 -->
-    <select id="findAll" resultMap="SysUserResultMap">
+
+    <!-- 根据条件查询用户列表 -->
+    <select id="findByCondition" parameterType="com.base.admin.dto.SysUserQueryDTO" resultMap="SysUserResultMap">
         SELECT ID, USERNAME, PASSWORD, NAME, STATUS, ROLE_ID, CREATE_TIME, UPDATE_TIME
         FROM sys_user
+        <where>
+            <if test="id != null">
+                AND ID = #{id}
+            </if>
+            <if test="username != null and username != ''">
+                AND USERNAME LIKE CONCAT('%', #{username}, '%')
+            </if>
+            <if test="name != null and name != ''">
+                AND NAME LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="status != null">
+                AND STATUS = #{status}
+            </if>
+            <if test="roleId != null">
+                AND ROLE_ID = #{roleId}
+            </if>
+        </where>
     </select>
 
     <!-- 根据ID查询用户 -->
