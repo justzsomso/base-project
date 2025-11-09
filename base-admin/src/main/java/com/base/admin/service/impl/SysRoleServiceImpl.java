@@ -46,9 +46,15 @@ public class SysRoleServiceImpl implements SysRoleService {
      * 保存角色信息
      * @param role 角色对象
      * @return 是否保存成功
+     * @throws IllegalArgumentException 如果已存在相同角色名称
      */
     @Override
     public boolean save(SysRole role) {
+        // 检查是否已存在相同的角色名称
+        SysRole existingRole = sysRoleMapper.findByRoleNameExact(role.getRoleName());
+        if (existingRole != null) {
+            throw new IllegalArgumentException("已存在该角色名称");
+        }
         return sysRoleMapper.insert(role) > 0;
     }
     
@@ -82,5 +88,14 @@ public class SysRoleServiceImpl implements SysRoleService {
         return sysRoleMapper.findByRoleName(roleName);
     }
     
+    /**
+     * 根据角色名称精确查询角色
+     * @param roleName 角色名称
+     * @return 角色信息
+     */
+    @Override
+    public SysRole findByRoleNameExact(String roleName) {
+        return sysRoleMapper.findByRoleNameExact(roleName);
+    }
 
 }

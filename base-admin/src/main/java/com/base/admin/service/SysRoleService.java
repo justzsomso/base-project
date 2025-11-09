@@ -17,8 +17,9 @@ public interface SysRoleService {
      * 保存角色信息
      * @param role 角色对象
      * @return 是否保存成功
+     * @throws IllegalArgumentException 如果已存在相同角色名称
      */
-    boolean save(SysRole role);
+    boolean save(SysRole role) throws IllegalArgumentException;
     
     /**
      * 更新角色信息
@@ -47,4 +48,11 @@ public interface SysRoleService {
      * @return 分页结果
      */
     PageResult<SysRole> findByCondition(SysRoleQueryDTO roleQuery);
+    
+    /**
+     * 根据角色名称精确查询角色
+     * @param roleName 角色名称
+     * @return 角色信息
+     */
+    SysRole findByRoleNameExact(String roleName);
 }

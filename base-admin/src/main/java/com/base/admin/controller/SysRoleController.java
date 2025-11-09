@@ -42,13 +42,19 @@ public class SysRoleController {
     // 创建角色
     @PostMapping("/")
     public ApiResult<Boolean> createRole(@RequestBody SysRole role) {
-        role.setCreateTime(new Date());
-        role.setUpdateTime(new Date());
-        boolean success = sysRoleService.save(role);
-        if (success) {
-            return ApiResult.success(true, "角色创建成功");
-        } else {
-            return ApiResult.failed("角色创建失败");
+        try {
+            role.setCreateTime(new Date());
+            role.setUpdateTime(new Date());
+            boolean success = sysRoleService.save(role);
+            if (success) {
+                return ApiResult.success(true, "角色创建成功");
+            } else {
+                return ApiResult.failed("角色创建失败");
+            }
+        } catch (IllegalArgumentException e) {
+            return ApiResult.failed(400, e.getMessage());
+        } catch (Exception e) {
+            return ApiResult.failed(500, "系统错误：" + e.getMessage());
         }
     }
 

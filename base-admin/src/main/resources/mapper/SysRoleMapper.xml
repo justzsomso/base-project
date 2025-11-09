@@ -52,6 +52,13 @@
         WHERE ROLE_NAME LIKE CONCAT('%', #{roleName}, '%')
     </select>
 
+    <!-- 根据角色名称精确查询角色 -->
+    <select id="findByRoleNameExact" parameterType="string" resultMap="SysRoleResultMap">
+        SELECT ID, ROLE_NAME, ROLE_CODE, DESCRIPTION, STATUS, CREATE_TIME, UPDATE_TIME
+        FROM sys_role
+        WHERE ROLE_NAME = #{roleName}
+    </select>
+
     <!-- 插入角色 -->
     <insert id="insert" parameterType="com.base.admin.entity.SysRole" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO sys_role(ROLE_NAME, ROLE_CODE, DESCRIPTION, STATUS, CREATE_TIME, UPDATE_TIME)

@@ -22,5 +22,10 @@ public interface SysRoleMapper {
 
     List<SysRole> findByRoleName(String roleName);
     
-
+    /**
+     * 根据角色名称精确查询角色
+     * @param roleName 角色名称
+     * @return 角色信息
+     */
+    SysRole findByRoleNameExact(String roleName);
 }
