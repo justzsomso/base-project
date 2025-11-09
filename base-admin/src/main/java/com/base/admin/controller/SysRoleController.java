@@ -3,6 +3,7 @@ package com.base.admin.controller;
 import com.base.admin.entity.SysRole;
 import com.base.admin.service.SysRoleService;
 import com.base.admin.util.PageResult;
+import com.base.admin.util.ApiResult;
 import com.base.admin.dto.SysRoleQueryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,40 +20,58 @@ public class SysRoleController {
 
     // 根据条件分页查询角色
     @GetMapping("/")
-    public PageResult<SysRole> getAllRoles(SysRoleQueryDTO roleQuery) {
-        return sysRoleService.findByCondition(roleQuery);
+    public ApiResult<PageResult<SysRole>> getAllRoles(SysRoleQueryDTO roleQuery) {
+        PageResult<SysRole> pageResult = sysRoleService.findByCondition(roleQuery);
+        return ApiResult.success(pageResult);
     }
 
     // 根据ID查询角色
     @GetMapping("/{id}")
-    public SysRole getRoleById(@PathVariable Long id) {
-        return sysRoleService.findById(id);
+    public ApiResult<SysRole> getRoleById(@PathVariable Long id) {
+        SysRole role = sysRoleService.findById(id);
+        return ApiResult.success(role);
     }
 
     // 根据角色名称查询角色
     @GetMapping("/search")
-    public List<SysRole> getRoleByName(@RequestParam String roleName) {
-        return sysRoleService.findByRoleName(roleName);
+    public ApiResult<List<SysRole>> getRoleByName(@RequestParam String roleName) {
+        List<SysRole> roles = sysRoleService.findByRoleName(roleName);
+        return ApiResult.success(roles);
     }
 
     // 创建角色
     @PostMapping("/")
-    public boolean createRole(@RequestBody SysRole role) {
+    public ApiResult<Boolean> createRole(@RequestBody SysRole role) {
         role.setCreateTime(new Date());
         role.setUpdateTime(new Date());
-        return sysRoleService.save(role);
+        boolean success = sysRoleService.save(role);
+        if (success) {
+            return ApiResult.success(true, "角色创建成功");
+        } else {
+            return ApiResult.failed("角色创建失败");
+        }
     }
 
     // 更新角色
     @PutMapping("/")
-    public boolean updateRole(@RequestBody SysRole role) {
+    public ApiResult<Boolean> updateRole(@RequestBody SysRole role) {
         role.setUpdateTime(new Date());
-        return sysRoleService.update(role);
+        boolean success = sysRoleService.update(role);
+        if (success) {
+            return ApiResult.success(true, "角色更新成功");
+        } else {
+            return ApiResult.failed("角色更新失败");
+        }
     }
 
     // 删除角色
     @DeleteMapping("/{id}")
-    public boolean deleteRole(@PathVariable Long id) {
-        return sysRoleService.deleteById(id);
+    public ApiResult<Boolean> deleteRole(@PathVariable Long id) {
+        boolean success = sysRoleService.deleteById(id);
+        if (success) {
+            return ApiResult.success(true, "角色删除成功");
+        } else {
+            return ApiResult.failed("角色删除失败");
+        }
     }
 }

@@ -4,13 +4,12 @@ import com.base.admin.dto.SysUserQueryDTO;
 import com.base.admin.entity.SysUser;
 import com.base.admin.service.SysUserService;
 import com.base.admin.util.PageResult;
+import com.base.admin.util.ApiResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -21,58 +20,63 @@ public class SysUserController {
 
     // 根据条件分页查询用户
     @GetMapping("/")
-    public PageResult<SysUser> getAllUsers(SysUserQueryDTO userQuery) {
-        return sysUserService.findByCondition(userQuery);
+    public ApiResult<PageResult<SysUser>> getAllUsers(SysUserQueryDTO userQuery) {
+        PageResult<SysUser> pageResult = sysUserService.findByCondition(userQuery);
+        return ApiResult.success(pageResult);
     }
 
     // 根据ID查询用户
     @GetMapping("/{id}")
-    public SysUser getUserById(@PathVariable Long id) {
-        return sysUserService.findById(id);
+    public ApiResult<SysUser> getUserById(@PathVariable Long id) {
+        SysUser user = sysUserService.findById(id);
+        return ApiResult.success(user);
     }
 
     // 创建用户
     @PostMapping("/")
-    public Map<String, Object> createUser(@RequestBody SysUser user) {
-        Map<String, Object> result = new HashMap<>();
+    public ApiResult<Boolean> createUser(@RequestBody SysUser user) {
         try {
             user.setCreateTime(new Date());
             user.setUpdateTime(new Date());
             boolean success = sysUserService.save(user);
-            result.put("success", success);
-            result.put("message", success ? "用户创建成功" : "用户创建失败");
+            if (success) {
+                return ApiResult.success(true, "用户创建成功");
+            } else {
+                return ApiResult.failed("用户创建失败");
+            }
         } catch (IllegalArgumentException e) {
-            result.put("success", false);
-            result.put("message", e.getMessage());
+            return ApiResult.failed(400, e.getMessage());
         } catch (Exception e) {
-            result.put("success", false);
-            result.put("message", "系统错误：" + e.getMessage());
+            return ApiResult.failed(500, "系统错误：" + e.getMessage());
         }
-        return result;
     }
 
     // 更新用户
     @PutMapping("/")
-    public Map<String, Object> updateUser(@RequestBody SysUser user) {
-        Map<String, Object> result = new HashMap<>();
+    public ApiResult<Boolean> updateUser(@RequestBody SysUser user) {
         try {
             user.setUpdateTime(new Date());
             boolean success = sysUserService.update(user);
-            result.put("success", success);
-            result.put("message", success ? "用户更新成功" : "用户更新失败");
+            if (success) {
+                return ApiResult.success(true, "用户更新成功");
+            } else {
+                return ApiResult.failed("用户更新失败");
+            }
         } catch (IllegalArgumentException e) {
-            result.put("success", false);
-            result.put("message", e.getMessage());
+            return ApiResult.failed(400, e.getMessage());
         } catch (Exception e) {
-            result.put("success", false);
-            result.put("message", "系统错误：" + e.getMessage());
+            return ApiResult.failed(500, "系统错误：" + e.getMessage());
         }
-        return result;
     }
 
     // 删除用户
     @DeleteMapping("/{id}")
-    public boolean deleteUser(@PathVariable Long id) {
-        return sysUserService.deleteById(id);
+    public ApiResult<Boolean> deleteUser(@PathVariable Long id) {
+        boolean success = sysUserService.deleteById(id);
+        if (success) {
+            return ApiResult.success(true, "用户删除成功");
+        } else {
+            return ApiResult.failed("用户删除失败");
+        }
     }
 }
